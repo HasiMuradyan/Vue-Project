@@ -1,6 +1,33 @@
-<script setup>
+<script>
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+
+export default {
+  data() {
+    return {
+      email: '',
+      isValidEmail: false
+    }
+  },
+  methods: {
+    inputEmail() {
+      const input = prompt('Please enter your email:')
+      if (input !== null) {
+        this.email = input.trim()
+        this.isValidEmail = this.validateEmail(this.email)
+      }
+    },
+    validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      return emailRegex.test(email)
+    },
+
+    resetEmail() {
+      this.email = ''
+      this.isValidEmail = false
+    }
+  }
+}
 </script>
 
 <template>
@@ -14,6 +41,17 @@ import TheWelcome from './components/TheWelcome.vue'
 
   <main>
     <TheWelcome />
+    <div
+      v-if="email"
+      :style="{
+        border: isValidEmail ? '2px solid green' : '2px solid red'
+      }"
+    >
+      <h1>{{ email }}</h1>
+      <h4>{{ isValidEmail ? 'The email is valid' : 'The email is invalid' }}</h4>
+    </div>
+    <button @click="inputEmail">Input Email</button>
+    <button @click="resetEmail">Reset</button>
   </main>
 </template>
 
