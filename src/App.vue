@@ -1,47 +1,50 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
+import Product from './components/Product.vue'
+
+export default {
+  components: {
+    Product
+  },
+  data() {
+    return {
+      fruits: [
+        {
+          name: 'apple',
+          price: '3$',
+          description: 'Golden apples from Armenia'
+        },
+        {
+          name: 'pear',
+          price: '3.4$',
+          description: 'Sweet pears'
+        },
+        {
+          name: 'cherry',
+          price: '2.6$',
+          description: 'Sour red cherries'
+        },
+        {
+          name: 'lemon',
+          price: '4$',
+          description: 'Big Chinese lemons'
+        },
+        {
+          name: 'banana',
+          price: '3.7$',
+          description: 'Fresh bananas from Ecuador'
+        }
+      ]
+    }
+  }
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
   <main>
-    <TheWelcome />
+    <ul>
+      <li v-for="fruit in fruits" :key="fruit.name">
+        <Product :fruit="fruit" />
+      </li>
+    </ul>
   </main>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
